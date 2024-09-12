@@ -2,7 +2,9 @@ import type { Metadata } from 'next'
 
 import { notoSans } from '@/lib/font'
 
+import Footer from '@/components/footer'
 import Navbar from '@/components/navbar'
+import { Providers } from '@/components/providers'
 import Sidebar from '@/components/sidebar'
 
 import './globals.css'
@@ -20,11 +22,16 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full w-full">
       <body className={`${notoSans.className} h-full w-full antialiased`}>
-        <div className="flex h-full w-full flex-col lg:flex-row">
-          <Navbar />
-          <Sidebar />
-          <div className="flex-1 overflow-auto">{children}</div>
-        </div>
+        <Providers>
+          <div className="flex h-full w-full flex-col lg:flex-row">
+            <Navbar />
+            <Sidebar />
+            <div className="flex flex-1 flex-col overflow-auto px-4 md:px-8 lg:px-16">
+              {children}
+              <Footer />
+            </div>
+          </div>
+        </Providers>
       </body>
     </html>
   )
