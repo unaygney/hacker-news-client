@@ -2,6 +2,9 @@ import type { Metadata } from 'next'
 
 import { notoSans } from '@/lib/font'
 
+import Navbar from '@/components/navbar'
+import Sidebar from '@/components/sidebar'
+
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -15,8 +18,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`${notoSans.className} antialiased`}>{children}</body>
+    <html lang="en" className="h-full w-full">
+      <body className={`${notoSans.className} h-full w-full antialiased`}>
+        <div className="flex h-full w-full flex-col lg:flex-row">
+          <Navbar />
+          <Sidebar />
+          <div className="flex-1 overflow-auto">{children}</div>
+        </div>
+      </body>
     </html>
   )
 }
