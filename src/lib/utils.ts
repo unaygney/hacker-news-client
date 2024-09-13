@@ -17,8 +17,12 @@ export function getUrlUpToTld(url: string): string {
   return url
 }
 export function formatTimeAgo(unixTimestamp: number): string {
+  unixTimestamp = unixTimestamp || 0
   const formattedTime = formatDistanceToNow(new Date(unixTimestamp * 1000), {
     addSuffix: true,
   })
   return formattedTime.replace('about ', '')
+}
+export function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms))
 }
