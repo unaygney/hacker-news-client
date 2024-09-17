@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { notoSans } from '@/lib/font'
+import { cn } from '@/lib/utils'
 
 import Footer from '@/components/footer'
 import Navbar from '@/components/navbar'
@@ -21,7 +22,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full w-full">
-      <body className={`${notoSans.className} h-full w-full antialiased`}>
+      <body
+        className={cn('h-full w-full antialiased', notoSans.className, {
+          'debug-screens': process.env.NODE_ENV === 'development',
+        })}
+      >
         <Providers>
           <div className="flex h-full w-full flex-col lg:flex-row">
             <Navbar />

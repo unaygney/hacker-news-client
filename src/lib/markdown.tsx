@@ -1,0 +1,61 @@
+import React from 'react'
+import { ComponentPropsWithoutRef } from 'react'
+import Markdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw'
+import remarkGfm from 'remark-gfm'
+
+interface MarkProps {
+  children: string
+}
+
+const CustomH1: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <h1 style={{ color: 'blue' }}>{children}</h1>
+)
+
+const CustomH2: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <h2 style={{ color: 'green' }}>{children}</h2>
+)
+
+const CustomParagraph: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => (
+  <p className="text-base font-normal leading-6 text-neutral-600 md:text-lg md:leading-7">
+    {children}
+  </p>
+)
+
+const CustomLink: React.FC<ComponentPropsWithoutRef<'a'>> = ({
+  children,
+  href = '#',
+  ...props
+}) => (
+  <a
+    href={href}
+    style={{ color: 'orange' }}
+    target="_blank"
+    rel="noopener noreferrer"
+    {...props}
+  >
+    {children}
+  </a>
+)
+
+export default function Mark({ children }: MarkProps) {
+  const components = {
+    h1: CustomH1,
+    h2: CustomH2,
+    p: CustomParagraph,
+    a: CustomLink,
+  }
+
+  return (
+    <Markdown
+      rehypePlugins={[rehypeRaw]}
+      remarkPlugins={[remarkGfm]}
+      // @ts-ignore
+      components={components}
+    >
+      {children}
+    </Markdown>
+  )
+}

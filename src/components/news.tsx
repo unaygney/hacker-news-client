@@ -17,7 +17,8 @@ export function News() {
     hasNextPage,
     isFetchingNextPage,
     data,
-    status,
+    isLoading,
+
     error,
   } = useInfiniteQuery({
     queryKey,
@@ -29,7 +30,7 @@ export function News() {
     getPreviousPageParam: (firstPage) => firstPage.prevCursor,
   })
 
-  if (status === 'pending')
+  if (isLoading)
     return (
       <div className="flex w-full justify-center py-10">
         <Loader2 className="animate-spin" />
