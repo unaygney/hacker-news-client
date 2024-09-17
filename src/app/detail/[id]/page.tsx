@@ -2,6 +2,7 @@ import { ArrowLeft, Clock } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
+import { CommentType } from '@/lib/definitions'
 import Mark from '@/lib/markdown'
 import { formatTimeAgo } from '@/lib/utils'
 
@@ -128,7 +129,13 @@ async function CommentsList({
   )
 }
 
-function Comment({ comment, isRoot }: { comment: any; isRoot?: boolean }) {
+function Comment({
+  comment,
+  isRoot,
+}: {
+  comment: CommentType
+  isRoot?: boolean
+}) {
   return (
     <div className={`${isRoot ? 'border-b border-neutral-200' : ''} py-4 pl-4`}>
       <div className="flex items-center gap-2">
