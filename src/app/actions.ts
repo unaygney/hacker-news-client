@@ -1,7 +1,10 @@
 'use server'
 
-export const fetchNews = async (pageParam: number) => {
-  const url = 'https://hacker-news.firebaseio.com/v0/topstories.json'
+export const fetchData = async (
+  pageParam: number,
+  topic: string = 'newstories'
+) => {
+  const url = `https://hacker-news.firebaseio.com/v0/${topic}.json`
 
   try {
     const response = await fetch(url)
@@ -32,4 +35,9 @@ export const fetchNews = async (pageParam: number) => {
     console.error('Error fetching news:', error)
     throw new Error('Failed to fetch news data. Please try again later.')
   }
+}
+export async function fetchPartDetails(partId: number) {
+  const url = `https://hacker-news.firebaseio.com/v0/item/${partId}.json`
+  const response = await fetch(url)
+  return response.json()
 }
