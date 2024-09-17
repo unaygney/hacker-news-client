@@ -52,7 +52,7 @@ export default function Mark({ children }: MarkProps) {
     <Markdown
       rehypePlugins={[rehypeRaw]}
       remarkPlugins={[remarkGfm]}
-      // @ts-ignore
+      // @ts-expect-error: This is a known issue due to type mismatch.
       components={components}
     >
       {children}
