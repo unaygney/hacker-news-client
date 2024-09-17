@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, ReactNode } from 'react'
+import React, { ComponentPropsWithoutRef } from 'react'
 import Markdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
