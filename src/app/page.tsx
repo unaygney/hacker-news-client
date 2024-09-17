@@ -10,7 +10,6 @@ export default async function Home() {
         title="New"
         description="Discover the latest submissions in the Hacker News community."
       />
-
       <News />
     </div>
   )

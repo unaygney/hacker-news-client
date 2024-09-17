@@ -1,12 +1,13 @@
 'use client'
 
+import { Squash as Hamburger } from 'hamburger-react'
 import Link from 'next/link'
 import React from 'react'
 
 import { ibmPlexMono } from '@/lib/font'
 import { cn } from '@/lib/utils'
 
-import { Logo, Menu } from './icons'
+import { Logo } from './icons'
 import { useNavbar } from './providers'
 
 export default function Navbar() {
@@ -26,9 +27,12 @@ export default function Navbar() {
         </h3>
       </Link>
 
-      <button onClick={() => setIsActive(!isActive)}>
-        <Menu />
-      </button>
+      <Hamburger
+        color="#404040"
+        size={24}
+        toggled={isActive}
+        toggle={setIsActive}
+      />
     </div>
   )
 }

@@ -7,6 +7,7 @@ import { fetchNews } from '@/app/actions'
 
 import CardNews from './card-news'
 import ErrorState from './error-state'
+import { LoadingData } from './skeletons'
 import { Button } from './ui/button'
 
 export function News() {
@@ -18,7 +19,6 @@ export function News() {
     isFetchingNextPage,
     data,
     isLoading,
-
     error,
   } = useInfiniteQuery({
     queryKey,
@@ -30,12 +30,7 @@ export function News() {
     getPreviousPageParam: (firstPage) => firstPage.prevCursor,
   })
 
-  if (isLoading)
-    return (
-      <div className="flex w-full justify-center py-10">
-        <Loader2 className="animate-spin" />
-      </div>
-    )
+  if (isLoading) return <LoadingData />
 
   if (error) return <ErrorState />
 
