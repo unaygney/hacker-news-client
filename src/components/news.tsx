@@ -2,8 +2,12 @@
 
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { ArrowDown, Loader2 } from 'lucide-react'
+import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
-import { fetchNews } from '@/app/actions'
+import { determineTopicByPage } from '@/lib/utils'
+
+import { fetchData } from '@/app/actions'
 
 import CardNews from './card-news'
 import ErrorState from './error-state'
@@ -11,7 +15,14 @@ import { LoadingData } from './skeletons'
 import { Button } from './ui/button'
 
 export function News() {
-  const queryKey = ['topStories']
+  const pathname = usePathname()
+  const [topic, setTopic] = useState(determineTopicByPage(pathname))
+
+  useEffect(() => {
+    setTopic(determineTopicByPage(pathname))
+  }, [pathname])
+
+  const queryKey = ['topics', topic]
 
   const {
     fetchNextPage,
@@ -24,7 +35,8 @@ export function News() {
     queryKey,
     staleTime: 15 * 60 * 1000,
     refetchOnWindowFocus: false,
-    queryFn: ({ pageParam }: { pageParam: number }) => fetchNews(pageParam),
+    queryFn: ({ pageParam }: { pageParam: number }) =>
+      fetchData(pageParam, topic),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage?.nextCursor,
     getPreviousPageParam: (firstPage) => firstPage.prevCursor,

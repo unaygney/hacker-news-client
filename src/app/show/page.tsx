@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Header from '@/components/header'
+import { News } from '@/components/news'
 
 export default function ShowPage() {
   return (
@@ -9,6 +10,7 @@ export default function ShowPage() {
         title="Show"
         description="Showcase your projects, products, and discoveries to the Hacker News audience."
       />
+      <News />
     </div>
   )
 }

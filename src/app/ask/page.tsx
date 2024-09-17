@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Header from '@/components/header'
+import { News } from '@/components/news'
 
 export default function AskPage() {
   return (
@@ -9,6 +10,7 @@ export default function AskPage() {
         title="Ask"
         description="Explore community-driven Q&A where users seek insights and advice."
       />
+      <News />
     </div>
   )
 }

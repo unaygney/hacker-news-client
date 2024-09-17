@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Header from '@/components/header'
+import { News } from '@/components/news'
 
 export default function JobsPage() {
   return (
@@ -9,6 +10,7 @@ export default function JobsPage() {
         title="Jobs"
         description="Connect with top tech job opportunities and company hiring posts."
       />
+      <News />
     </div>
   )
 }

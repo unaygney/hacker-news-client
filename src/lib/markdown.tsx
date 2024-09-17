@@ -1,11 +1,11 @@
-import React from 'react'
-import { ComponentPropsWithoutRef } from 'react'
+import React, { ComponentPropsWithoutRef, ReactNode } from 'react'
 import Markdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
 
 interface MarkProps {
   children: string
+  components?: Record<string, React.ElementType> // Bileşenleri geçersiz kılmak için prop
 }
 
 const CustomH1: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -40,20 +40,22 @@ const CustomLink: React.FC<ComponentPropsWithoutRef<'a'>> = ({
   </a>
 )
 
-export default function Mark({ children }: MarkProps) {
-  const components = {
+export default function Mark({ children, components }: MarkProps) {
+  const defaultComponents = {
     h1: CustomH1,
     h2: CustomH2,
     p: CustomParagraph,
     a: CustomLink,
   }
 
+  const mergedComponents = { ...defaultComponents, ...components }
+
   return (
     <Markdown
       rehypePlugins={[rehypeRaw]}
       remarkPlugins={[remarkGfm]}
       // @ts-expect-error: This is a known issue due to type mismatch.
-      components={components}
+      components={mergedComponents}
     >
       {children}
     </Markdown>
