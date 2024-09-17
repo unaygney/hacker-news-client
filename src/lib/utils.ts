@@ -26,3 +26,17 @@ export function formatTimeAgo(unixTimestamp: number): string {
 export function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
+
+export function determineTopicByPage(pathname: string): string {
+  if (pathname === '/') {
+    return 'newstories'
+  } else if (pathname.includes('/ask')) {
+    return 'askstories'
+  } else if (pathname.includes('/jobs')) {
+    return 'jobstories'
+  } else if (pathname.includes('/show')) {
+    return 'showstories'
+  } else {
+    return 'newstories'
+  }
+}
