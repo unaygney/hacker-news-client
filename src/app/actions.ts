@@ -13,6 +13,8 @@ export const fetchData = async (
     }
 
     const topStoryIds: number[] = await response.json()
+
+    const hasNextPage = pageParam + 20 < topStoryIds.length
     const selectedIds = topStoryIds.slice(pageParam, pageParam + 20)
 
     const stories = await Promise.all(
@@ -28,14 +30,16 @@ export const fetchData = async (
 
     return {
       stories,
-      nextCursor: pageParam + 20,
+      nextCursor: hasNextPage ? pageParam + 20 : undefined,
       prevCursor: pageParam > 0 ? pageParam - 20 : undefined,
+      hasNextPage,
     }
   } catch (error) {
     console.error('Error fetching news:', error)
     throw new Error('Failed to fetch news data. Please try again later.')
   }
 }
+
 export async function fetchPartDetails(partId: number) {
   const url = `https://hacker-news.firebaseio.com/v0/item/${partId}.json`
   const response = await fetch(url)
