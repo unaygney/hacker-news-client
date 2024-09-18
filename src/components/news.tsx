@@ -62,19 +62,21 @@ export function News() {
           </div>
         ))}
 
-        <Button
-          variant={'outline'}
-          className="inline-flex items-center justify-center gap-1"
-          onClick={() => fetchNextPage()}
-          disabled={!hasNextPage || isFetchingNextPage}
-        >
-          More
-          {isFetchingNextPage ? (
-            <Loader2 width={16} height={16} className="animate-spin" />
-          ) : (
-            <ArrowDown width={16} height={16} />
-          )}
-        </Button>
+        {hasNextPage && (
+          <Button
+            variant={'outline'}
+            className="inline-flex items-center justify-center gap-1"
+            onClick={() => fetchNextPage()}
+            disabled={!hasNextPage || isFetchingNextPage}
+          >
+            More
+            {isFetchingNextPage ? (
+              <Loader2 width={16} height={16} className="animate-spin" />
+            ) : (
+              <ArrowDown width={16} height={16} />
+            )}
+          </Button>
+        )}
       </div>
     )
   }
