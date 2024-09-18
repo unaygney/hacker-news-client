@@ -16,7 +16,12 @@ import { Button } from './ui/button'
 
 export function News() {
   const pathname = usePathname()
+  const [mounted, setMounted] = useState(false)
   const [topic, setTopic] = useState(determineTopicByPage(pathname))
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     setTopic(determineTopicByPage(pathname))
@@ -46,29 +51,31 @@ export function News() {
 
   if (error) return <ErrorState />
 
-  return (
-    <div>
-      {data?.pages.map((page, pageIndex) => (
-        <div key={pageIndex}>
-          {page.stories.map((story) => (
-            <CardNews story={story} key={story.id} />
-          ))}
-        </div>
-      ))}
+  if (mounted) {
+    return (
+      <div>
+        {data?.pages.map((page, pageIndex) => (
+          <div key={pageIndex}>
+            {page.stories.map((story) => (
+              <CardNews story={story} key={story.id} />
+            ))}
+          </div>
+        ))}
 
-      <Button
-        variant={'outline'}
-        className="inline-flex items-center justify-center gap-1"
-        onClick={() => fetchNextPage()}
-        disabled={!hasNextPage || isFetchingNextPage}
-      >
-        More
-        {isFetchingNextPage ? (
-          <Loader2 width={16} height={16} className="animate-spin" />
-        ) : (
-          <ArrowDown width={16} height={16} />
-        )}
-      </Button>
-    </div>
-  )
+        <Button
+          variant={'outline'}
+          className="inline-flex items-center justify-center gap-1"
+          onClick={() => fetchNextPage()}
+          disabled={!hasNextPage || isFetchingNextPage}
+        >
+          More
+          {isFetchingNextPage ? (
+            <Loader2 width={16} height={16} className="animate-spin" />
+          ) : (
+            <ArrowDown width={16} height={16} />
+          )}
+        </Button>
+      </div>
+    )
+  }
 }

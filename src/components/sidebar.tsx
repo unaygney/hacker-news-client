@@ -78,9 +78,11 @@ export default function Sidebar({ className }: { className?: string }) {
 }
 
 function NavLink({ link }: { link: TypeLink }) {
+  const { setIsActive } = useNavbar()
   const pathname = usePathname()
   return (
     <Link
+      onClick={() => setIsActive(false)}
       className={cn('flex items-center gap-3 rounded p-1.5 text-neutral-600', {
         'bg-orange-50 text-orange-600': pathname === link.link,
       })}
